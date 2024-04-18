@@ -11,7 +11,7 @@ pipeline {
     agent { label 'demo' }
     steps { 
         git credentialsId: 'GitlabCred', url: 'https://gitlab.com/wezvaprojects/ninjas/deployments.git'
-	 	dir ("./k8smanifest") {
+	 	dir ("./functionaltest") {
 	      sh "sed -i 's/image:.*/image: $ECRURL$IMAGE/g' deployment.yaml" // make sure the ECRURL has \/ at the end
 	    }
 		sh 'git commit -a -m "New deployment for Build $IMAGE"'
