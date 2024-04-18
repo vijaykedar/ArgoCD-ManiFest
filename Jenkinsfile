@@ -10,7 +10,7 @@ pipeline {
   {
     agent { label 'demo' }
     steps { 
-        git branch: 'newfeature', credentialsId: 'GitlabCred', url: 'https://gitlab.com/wezvaprojects/ninjas/deployments.git'
+        git branch: 'springboot', credentialsId: 'GitlabCred', url: 'https://gitlab.com/wezvaprojects/ninjas/deployments.git'
 	 	dir ("./functionaltest") {
 	      sh "sed -i 's/image:.*/image: $ECRURL$IMAGE/g' deployment.yaml" // make sure the ECRURL has \/ at the end
 	    }
