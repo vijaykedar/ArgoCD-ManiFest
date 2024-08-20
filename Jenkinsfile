@@ -1,8 +1,8 @@
 pipeline {
  agent none
  parameters {
-   string(name: 'ECRURL', defaultValue: '437030480074.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter ECR REGISTRY URL with / at the end')
-   string(name: 'IMAGE', defaultValue: 'wezvaappimage:3', description: 'Please Enter the Image to Deploy?')
+   string(name: 'ECRURL', defaultValue: '303255670930.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter ECR REGISTRY URL with / at the end')
+   string(name: 'IMAGE', defaultValue: 'wezvatechbackend:14', description: 'Please Enter the Image to Deploy?')
    password(name: 'PASSWD', defaultValue: '', description: 'Please Enter your Gitlab password')
  }
  stages {
