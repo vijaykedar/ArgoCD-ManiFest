@@ -7,8 +7,9 @@ pipeline {
  agent none
  parameters {
    string(name: 'ECRURL', defaultValue: '303255670930.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter ECR REGISTRY URL with / at the end')
-   string(name: 'IMAGE', defaultValue: 'wezvatechbackend:14', description: 'Please Enter the Image to Deploy?')
+   string(name: 'IMAGE', defaultValue: 'wezvatechbackend:rel38', description: 'Please Enter the Image to Deploy?')
    password(name: 'PASSWD', defaultValue: '', description: 'Please Enter your Gitlab password')
+   choice(name:'branch', choices: ['fuctional', 'integration', 'regression', 'uat', 'release' ] ,description: 'select where need to deploy')
  }
  stages {
   stage('Deploy')
@@ -16,7 +17,7 @@ pipeline {
     agent { label 'demo' }
     steps { 
         git branch: 'springboot', credentialsId: 'GitlabCred', url: 'https://gitlab.com/wezvaprojects/ninjas/deployments.git'
-	    dir ("./functionaltest") {
+	    dir ("./${params.branch}") {
               sh "sed -i 's/image:.[0-9][0-9].*/image: $ECRURL$IMAGE/g' deploybackend.yml" // make sure the ECRURL has \/ at the end
 	    }
 
