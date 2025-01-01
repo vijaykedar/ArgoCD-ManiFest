@@ -23,7 +23,7 @@ spec:
          command: ['sh', '-c', "until nslookup mysql-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
      containers:
        - name: wezvabackendapp
-         image: 303255670930.dkr.ecr.ap-south-1.amazonaws.com/wezvatechbackend:fb11
+         image: 303255670930.dkr.ecr.ap-south-1.amazonaws.comwezvatechbackend:int3
          imagePullPolicy: IfNotPresent
          env:
           - name: MYSQL_USER
