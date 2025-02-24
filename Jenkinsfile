@@ -6,7 +6,7 @@
 pipeline {
  agent none
  parameters {
-   string(name: 'ECRURL', defaultValue: '303255670930.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter ECR REGISTRY URL with / at the end')
+   string(name: 'ECRURL', defaultValue: '717279694003.dkr.ecr.ap-south-1.amazonaws.com', description: 'Please Enter ECR REGISTRY URL with / at the end')
    string(name: 'IMAGE', defaultValue: 'wezvatechbackend:rel38', description: 'Please Enter the Image to Deploy?')
    password(name: 'PASSWD', defaultValue: '', description: 'Please Enter your Gitlab password')
    choice(name:'branch', choices: ['functional', 'integration', 'regression', 'uat', 'release' ] ,description: 'select where need to deploy')
