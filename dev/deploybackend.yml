@@ -2,7 +2,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: wezvabackendapp
-  namespace: functional
+  namespace: dev
   labels:
     app.kubernetes.io/name: wezvabackendapp
 spec:
