@@ -12,17 +12,6 @@ pipeline {
    choice(name:'branch', choices: ['dev', 'sit', 'pre-prod', 'prod'] ,description: 'select where need to deploy')
  }
  stages {
-
-
- stage('ECR-secret') {
-   agent {label 'demo'}
-   steps {
-	   
-	     withAWS(credentials:'AWSCred') {
-	            sh "kubectl create secret docker-registry awsecr-cred  --docker-server=$ECRURL  --docker-username=AWS --docker-password=\$(aws ecr get-login-password)  --namespace=dev"
-	        }
-   }
- }
 	 
   stage('Deploy')
   {
