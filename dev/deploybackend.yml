@@ -83,7 +83,7 @@ spec:
   - port: 8080
     protocol: TCP
     targetPort: 8080
-    nodePort: 32000	
+    nodePort: 32001	
   selector:
     app.kubernetes.io/name: wezvabackendapp
   type: NodePort
