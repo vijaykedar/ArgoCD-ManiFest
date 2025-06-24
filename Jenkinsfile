@@ -18,7 +18,7 @@ pipeline {
     agent { label 'demo' }
     steps { 
         git branch: 'springboot', credentialsId: '6414761f-2f87-4d48-b649-9dcb76e50a81', url: 'https://github.com/vijaykedar/ArgoCD-ManiFest.git'
-	    dir ("./${params.branch}") {
+	   dir ("./${params.branch}") {
               sh "sed -i 's/image:.[0-9][0-9].*/image: $ECRURL$IMAGE/g' deploybackend.yml" // make sure the ECRURL has \/ at the end
 	    }
 
