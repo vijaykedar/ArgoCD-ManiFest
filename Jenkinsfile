@@ -19,7 +19,7 @@ pipeline {
    steps {
 	   
 	     withAWS(credentials:'AWSCred') {
-	            sh "kubectl create secret docker-registry awsecr-cred  --docker-server=$ECRURL  --docker-username=AWS --docker-password=\$(aws ecr get-login-password)  --namespace=wezvatechfb"
+	            sh "kubectl create secret docker-registry awsecr-cred  --docker-server=$ECRURL  --docker-username=AWS --docker-password=\$(aws ecr get-login-password)  --namespace=dev"
 	        }
    }
  }
