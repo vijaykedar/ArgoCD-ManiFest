@@ -77,7 +77,7 @@ metadata:
   labels:
     app.kubernetes.io/name: wezvabackendapp
   name: backend-svc
-  namespace: functional
+  namespace: dev
 spec:
   ports:
   - port: 8080
