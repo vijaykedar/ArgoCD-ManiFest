@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: wezvabackendapp
-  namespace: functional
+  namespace: dev
 data:
    application.properties: |
 
