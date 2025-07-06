@@ -1,0 +1,95 @@
+kind: Rollout
+apiVersion: argoproj.io/v1alpha1
+metadata:
+  name: wezvaspringbootapp
+  labels:
+    app.kubernetes.io/name: wezvaspringbootapp
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      activeService: backend-svc
+      previewService: backendnew-svc
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: wezvaspringbootapp
+  template:
+    metadata:
+      annotations:
+        vault.hashicorp.com/agent-inject: "true"
+        vault.hashicorp.com/agent-inject-status: "update"
+        vault.hashicorp.com/role: "wezvatech-admin"
+        vault.hashicorp.com/agent-inject-secret-databaseenv.txt: "internal/data/database/config"
+        vault.hashicorp.com/agent-inject-template-databaseenv.txt: |
+          {{- with secret "internal/data/database/config" -}}
+          spring.datasource.username={{ .Data.data.username }}
+          spring.datasource.password={{ .Data.data.password }}
+          {{- end -}}
+      labels:
+        app.kubernetes.io/name: wezvaspringbootapp
+    spec:
+     serviceAccountName: wezvatech-admin
+     affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: disktype
+                operator: In
+                values:
+                - ssd
+     imagePullSecrets:
+       - name: ecr-secret
+     initContainers:
+       - name: init-mydb
+         image: busybox:1.28
+         command: ['sh', '-c', "until nslookup mysql-svc.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
+         resources:
+            limits:
+              cpu: 400m
+              memory: 500Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+     containers:
+       - name: main
+         image: 001647536300.dkr.ecr.ap-south-1.amazonaws.com/wezvatechbackend:rel2
+         #image: adamtravis/wezvatechspringboot:testnew
+         imagePullPolicy: IfNotPresent
+         ports:
+           - containerPort: 8080
+         livenessProbe:
+           httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+           initialDelaySeconds: 90
+           periodSeconds:  45 
+           timeoutSeconds:  5
+         readinessProbe:
+           httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+           initialDelaySeconds: 90
+           timeoutSeconds:  5
+           periodSeconds: 5
+         resources:
+            limits: 
+              cpu: 400m
+              memory: 1Gi
+            requests:
+              cpu: 100m
+              memory: 128Mi
+         volumeMounts:
+         - name: appconfigmap
+           mountPath: "/opt/wezva/application.properties.orig"
+           subPath: application.properties.orig
+     volumes:
+     - name: appconfigmap
+       configMap:
+         name: wezvaspringbootapp
+         items:
+         - key: application.properties.orig
+           path: application.properties.orig
+
