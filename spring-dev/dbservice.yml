@@ -4,4 +4,4 @@ metadata:
   name: mysql-svc
 spec:
   type: ExternalName
-  externalName: "wezvadb-main.crw8q8is4thp.ap-south-1.rds.amazonaws.com"
+  externalName: "wezvadb-main.cd0ouu6mmcf9.ap-south-1.rds.amazonaws.com"
