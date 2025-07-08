@@ -22,7 +22,7 @@ pipeline {
               sh "sed -i 's#image:.[0-9][0-9].*#image: $ECRURL$IMAGE#g' deploybackend.yml" // make sure the ECRURL has \/ at the end
 	    }
 
-		sh 'git commit -a -m "New deployment for Build $IMAGE"'
+		sh 'git commit -a -m "New deployment for Build ${IMAGE}"'
 		sh "git push https://vijaykedar:$PASSWD@github.com/vijaykedar/ArgoCD-ManiFest.git"
     }
   }
