@@ -6,9 +6,9 @@
 pipeline {
  agent none
  parameters {
-   string(name: 'ECRURL', defaultValue: '888577067491.dkr.ecr.ap-south-1.amazonaws.com/', description: 'Please Enter ECR REGISTRY URL with / at the end')
-   string(name: 'IMAGE', defaultValue: 'dev:fb50', description: 'Please Enter the Image to Deploy?')
-   password(name: 'PASSWD', defaultValue: '', description: 'Please Enter your Gitlab password')
+   string(name: 'ECRURL', defaultValue: '013623161468.dkr.ecr.ap-south-1.amazonaws.com/', description: 'Please Enter ECR REGISTRY URL with / at the end')
+   string(name: 'IMAGE', defaultValue: 'spring-dev:dev66', description: 'Please Enter the Image to Deploy?')
+   password(name: 'PASSWD', defaultValue: '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', description: 'Please Enter your Gitlab password')
    choice(name:'branch', choices: ['spring-dev', 'sit', 'pre-prod', 'prod'] ,description: 'select where need to deploy')
  }
  stages {
