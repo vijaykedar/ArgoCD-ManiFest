@@ -55,7 +55,7 @@ spec:
               memory: 128Mi
      containers:
        - name: main
-         image: 013623161468.dkr.ecr.ap-south-1.amazonaws.com/spring-dev:fb65
+         image: 013623161468.dkr.ecr.ap-south-1.amazonaws.com/spring-dev:dev66
          #image: adamtravis/wezvatechspringboot:testnew
          imagePullPolicy: IfNotPresent
          ports:
