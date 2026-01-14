@@ -22,6 +22,10 @@ pipeline {
               sh "sed -i 's#image:.[0-9][0-9].*#image: $ECRURL$IMAGE#g' deployment.yml" // make sure the ECRURL has \/ at the end
 	    }
 
+		sh 'git config user.name "vijaykedar"'
+        sh 'git config user.email "kedarvijay191@gmail.com"'
+
+
 		sh 'git commit -a -m "New deployment for Build ${IMAGE}"'
 		sh "git push https://vijaykedar:$PASSWD@github.com/vijaykedar/ArgoCD-ManiFest.git"
     }
@@ -33,3 +37,4 @@ pipeline {
 // Author: Adam WezvaTechnologies
 // Call/Whatsapp: +91-9739110917
 //---------------------------------------------
+
